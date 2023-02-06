@@ -33,6 +33,12 @@ const temp = async()=>{
   await State.create({})
 }
 temp()
+
+app.get("/",(req,res) =>{
+  res.send(
+    "<h1>Working fine</h1>"
+  )
+})
 app.listen(process.env.PORT, () => {
   console.log(`server is running ${process.env.PORT}`);
 });
