@@ -16,6 +16,6 @@ app.use("/api/v2", payment)
 app.use("/api/v2",courses)
 app.use("/api/v2",user)
 app.use("/api/v2",Other)
-export default app;
 
 app.use(errorMiddleware)
+export default app;
