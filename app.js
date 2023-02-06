@@ -17,5 +17,5 @@ app.use("/api/v2",courses)
 app.use("/api/v2",user)
 app.use("/api/v2",Other)
 
-app.use(errorMiddleware)
+// app.use(errorMiddleware)
 export default app;
