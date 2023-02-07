@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken"
-import { User } from "../models/User.js";
 import ErrorHandlerUtils from "./../utils/errorHandlerUtils.js";
+import { User } from "../models/User.js";
 import { catchAsyncError } from "./catchAsyncErrors.js"
 
-export const isAuthenticated = catchAsyncError(async(req,rex,next) =>{
+export const isAuthenticated = catchAsyncError(async(req,res,next) =>{
     const {token} = req.cookies;
     if(!token) return next(new ErrorHandlerUtils("Not logged In.",401))
 
@@ -25,6 +25,7 @@ export const authorizeAdmin = (req,res,next) =>{
 
 export const authorizeSubscriber = (req,res,next)=>{
     if(req.user.subscription.status !=="active" &&req.user.role !=="admin")
-    return next(new ErrorHandlerUtils(`Only Subscribers can this resource`,403))
+    return next(new 
+        (`Only Subscribers can this resource`,403))
     next();
 }

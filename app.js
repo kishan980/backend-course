@@ -27,7 +27,7 @@ app.use("/api/v2",courses)
 app.use("/api/v2",user)
 app.use("/api/v2",Other)
 
-export default app;
-
 app.get("/", (req,res) =>res.send(`<h1>server is working click <a href=${process.env.FRONTEND_URL}></a> to frontend</h1>`))
 app.use(errorMiddleware)
+
+export default app;
