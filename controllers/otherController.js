@@ -1,5 +1,5 @@
 import { catchAsyncError } from '../middlewares/catchAsyncErrors.js';
-import ErrorHandlerUtils from '../utils/errorHandlerUtils.js';
+import ErrorHandlerUtils from './../utils/ErrorHandlerUtils';
 import { sendEmail } from './../utils/sendEmail.js';
 import { State } from '../models/State.js';
 export const contact = catchAsyncError(async (req, res, next) => {

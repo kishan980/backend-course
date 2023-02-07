@@ -1,5 +1,5 @@
+import ErrorHandlerUtils from './../utils/ErrorHandlerUtils';
 import { catchAsyncError } from './../middlewares/catchAsyncErrors.js';
-import ErrorHandlerUtils from '../utils/errorHandlerUtils.js';
 import { sendToken } from '../utils/sendTokenUtil.js';
 import { User } from '../models/User.js';
 import { sendEmail } from '../utils/sendEmail.js';

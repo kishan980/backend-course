@@ -6,7 +6,6 @@ import nodeCron from "node-cron";
 
 import { connectDb } from './config/database.js';
 import { State } from './models/State.js';
-import errorMiddleware from './middlewares/errorMiddleware.js';
 dotenv.config({ path: './config/config.env' });
 
 connectDb();
@@ -41,7 +40,6 @@ app.get("/",(req,res) =>{
   )
 })
 
-app.use(errorMiddleware)
 app.listen(process.env.PORT, () => {
   console.log(`server is running ${process.env.PORT}`);
 });

@@ -1,4 +1,4 @@
-import ErrorHandlerUtils from './../utils/ErrorHandlerUtils.js';
+import ErrorHandlerUtils from './../utils/ErrorHandlerUtils';
 import { catchAsyncError } from '../middlewares/catchAsyncErrors.js';
 import { User } from '../models/User.js';
 import { instance } from '../server.js';
