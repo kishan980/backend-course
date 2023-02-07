@@ -5,6 +5,7 @@ import user from './routes/userRouter.js';
 import errorMiddleware from './middlewares/errorMiddleware.js';
 import payment from "./routes/paymentRouter.js";
 import Other from "./routes/otherRoutes.js"
+import cors from "cors";
 
 const app = express();
 app.use(cookieParser())
