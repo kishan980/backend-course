@@ -1,12 +1,10 @@
 import app from './app.js';
-import dotenv from 'dotenv';
 import cloudinary from 'cloudinary';
 import Razorpay from 'razorpay';
 import nodeCron from "node-cron";
 
 import { connectDb } from './config/database.js';
 import { State } from './models/State.js';
-dotenv.config({ path: './config/config.env' });
 
 connectDb();
 cloudinary.v2.config({
