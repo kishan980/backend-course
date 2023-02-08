@@ -48,10 +48,14 @@ export const login = catchAsyncError(async (req, res, next) => {
 });
 
 export const logout = catchAsyncError(async (req, res, next) => {
+  console.log("hiiii")
   return res
     .status(200)
     .cookie('token', null, {
       expires: new Date(Date.now()),
+      httpOnly:true,
+      // secure:true,
+      sameSite:"none"
     })
     .json({
       success: true,
