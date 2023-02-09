@@ -1,8 +1,8 @@
-import { Course } from './../models/Courses.js';
-import {errorHandlerUtils} from './../utils/errorHandlerUtils';
+import {errorHandlerUtils} from './../utils/errorHandlerUtils.js';
 import { catchAsyncError } from './../middlewares/catchAsyncErrors.js';
 import getDataUri from '../utils/dataUri.js';
 import cloudinary from 'cloudinary';
+import { Course } from './../models/Courses.js';
 import { State } from './../models/State.js';
 
 export const getAllCourse = catchAsyncError(async (req, res) => {
