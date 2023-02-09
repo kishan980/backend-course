@@ -5,4 +5,3 @@ export class errorHandlerUtils extends Error {
   }
 }
 
-// export default errorHandlerUtils;

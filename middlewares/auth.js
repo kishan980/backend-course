@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 import { User } from "../models/User.js";
 import { catchAsyncError } from "./catchAsyncErrors.js"
-import {errorHandlerUtils} from "../utils/errorHandlerUtils.js";
+import {errorHandlerUtils} from "./../utils/errorHandlerUtils.js";
 
 export const isAuthenticated = catchAsyncError(async(req,res,next) =>{
     const {token} = req.cookies;
