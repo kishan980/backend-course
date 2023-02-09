@@ -1,6 +1,6 @@
 import { Course } from './../models/Courses.js';
-import { catchAsyncError } from './../middlewares/catchAsyncErrors.js';
 import {errorHandlerUtils} from './../utils/errorHandlerUtils';
+import { catchAsyncError } from './../middlewares/catchAsyncErrors.js';
 import getDataUri from '../utils/dataUri.js';
 import cloudinary from 'cloudinary';
 import { State } from './../models/State.js';
