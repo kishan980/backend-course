@@ -2,7 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import courses from "./routes/courseRouter.js";
 import user from './routes/userRouter.js';
-import errorMiddleware from './middlewares/errorMiddleware.js';
+import {errorMiddleware} from './middlewares/errorMiddleware.js';
 import payment from "./routes/paymentRouter.js";
 import Other from "./routes/otherRoutes.js"
 import cors from "cors";
