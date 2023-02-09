@@ -1,11 +1,11 @@
 import { catchAsyncError } from '../middlewares/catchAsyncErrors.js';
-import ErrorHandlerUtils from './../utils/ErrorHandlerUtils.js';
+import errorHandlerUtils from '../utils/errorHandlerUtils.js';
 import { sendEmail } from './../utils/sendEmail.js';
 import { State } from '../models/State.js';
 export const contact = catchAsyncError(async (req, res, next) => {
   const { name, email, message } = req.body;
   if (!name || !email || !message)
-    return next(new ErrorHandlerUtils('Please enter all filed', 400));
+    return next(new errorHandlerUtils('Please enter all filed', 400));
   const to = process.env.MY_MAIL;
   const subject = 'contact from courseBundler';
 
@@ -21,7 +21,7 @@ export const courseRequest = catchAsyncError(async (req, res, next) => {
   const { name, email, course } = req.body;
 
   if (!name || !email || !course)
-    return next(new ErrorHandlerUtils('Please enter all filed', 400));
+    return next(new errorHandlerUtils('Please enter all filed', 400));
   const to = process.env.MY_MAIL;
   const subject = 'Request from courseBundler';
 

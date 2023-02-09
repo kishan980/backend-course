@@ -1,4 +1,4 @@
-import ErrorHandlerUtils from './../utils/ErrorHandlerUtils.js';
+import errorHandlerUtils from '../utils/errorHandlerUtils.js';
 import { catchAsyncError } from './../middlewares/catchAsyncErrors.js';
 import { sendToken } from '../utils/sendTokenUtil.js';
 import { User } from '../models/User.js';
@@ -13,9 +13,9 @@ export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
   const file = req.file;
   if (!name || !email | !password || !file)
-    return next(new ErrorHandlerUtils('Please enter the all filed', 400));
+    return next(new errorHandlerUtils('Please enter the all filed', 400));
   let user = await User.findOne({ email });
-  if (user) return next(new ErrorHandlerUtils('User already exists', 409));
+  if (user) return next(new errorHandlerUtils('User already exists', 409));
   const fileUri = getDataUri(file);
   const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
   user = await User.create({
@@ -34,27 +34,26 @@ export const login = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
-    return next(new ErrorHandlerUtils('Please enter all filed', 400));
+    return next(new errorHandlerUtils('Please enter all filed', 400));
 
   const user = await User.findOne({ email }).select('+password');
 
-  if (!user) return next(new ErrorHandlerUtils('Incorrect email', 401));
+  if (!user) return next(new errorHandlerUtils('Incorrect email', 401));
 
   const isMatch = await user.ComparePassword(password);
 
-  if (!isMatch) return next(new ErrorHandlerUtils('Incorrect password'));
+  if (!isMatch) return next(new errorHandlerUtils('Incorrect password'));
 
   sendToken(res, user, `Welcome back ,${user.name}`, 200);
 });
 
 export const logout = catchAsyncError(async (req, res, next) => {
-  console.log("hiiii")
   return res
     .status(200)
     .cookie('token', null, {
       expires: new Date(Date.now()),
       httpOnly:true,
-      // secure:true,
+      secure:true,
       sameSite:"none"
     })
     .json({
@@ -74,11 +73,11 @@ export const getMyProfile = catchAsyncError(async (req, res, next) => {
 export const ChangePassword = catchAsyncError(async (req, res, next) => {
   const { oldPassword, newPassword } = req.body;
   if (!oldPassword || !newPassword)
-    return next(new ErrorHandlerUtils('Please enter all filed', 400));
+    return next(new errorHandlerUtils('Please enter all filed', 400));
   const user = await User.findById({ _id: req.user._id }).select('+password');
   const isMatch = await user.ComparePassword(oldPassword);
   if (!isMatch)
-    return next(new ErrorHandlerUtils('Incorrect oldPassword', 400));
+    return next(new errorHandlerUtils('Incorrect oldPassword', 400));
 
   user.password = newPassword;
   await user.save();
@@ -92,7 +91,7 @@ export const ChangePassword = catchAsyncError(async (req, res, next) => {
 export const ProfileUpdate = catchAsyncError(async (req, res, next) => {
   const { name, email } = req.body;
   if (!name || !email)
-    return next(new ErrorHandlerUtils('Please enter the all filed'));
+    return next(new errorHandlerUtils('Please enter the all filed'));
   const user = await User.findById({ _id: req.user._id });
   if (name) user.name = name;
   if (email) user.email = email;
@@ -124,7 +123,7 @@ export const updateProfilePicture = catchAsyncError(async (req, res, next) => {
 export const forgotPassword = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
-  if (!user) return next(new ErrorHandlerUtils('User not found', 400));
+  if (!user) return next(new errorHandlerUtils('User not found', 400));
 
   const resetToken = await user.getResetToken();
   await user.save();
@@ -151,7 +150,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   });
   if (!user)
     return next(
-      new ErrorHandlerUtils('token is invalid and hash been expired')
+      new errorHandlerUtils('token is invalid and hash been expired')
     );
 
   user.password = req.body.password;
@@ -167,13 +166,13 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 export const addFormPlaylist = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   const course = await Course.findById(req.body.id);
-  if (!course) return next(new ErrorHandlerUtils('Invalid Course Id', 404));
+  if (!course) return next(new errorHandlerUtils('Invalid Course Id', 404));
 
   const itemExist = user.playlist.find(item => {
     if (item.course.toString() === course._id.toString()) return true;
   });
 
-  if (itemExist) return next(new ErrorHandlerUtils('Item already exist', 409));
+  if (itemExist) return next(new errorHandlerUtils('Item already exist', 409));
 
   user.playlist.push({
     course: course._id,
@@ -190,7 +189,7 @@ export const addFormPlaylist = catchAsyncError(async (req, res, next) => {
 export const removeFormPlaylist = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   const course = await Course.findById(req.query.id);
-  if (!course) return next(new ErrorHandlerUtils('Course Id invalid', 400));
+  if (!course) return next(new errorHandlerUtils('Course Id invalid', 400));
   let newPlayList = user.playlist.filter(item => {
     if (item.course.toString() !== course._id.toString()) return item;
   });
@@ -203,6 +202,7 @@ export const removeFormPlaylist = catchAsyncError(async (req, res, next) => {
 });
 
 export const getAllUser = catchAsyncError(async (req, res, next) => {
+  console.log("token response is ",res.cookie)
   const user = await User.find({});
   return res.status(200).json({
     success: true,
@@ -212,7 +212,7 @@ export const getAllUser = catchAsyncError(async (req, res, next) => {
 
 export const roleUpdate = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
-  if (!user) return next(new ErrorHandlerUtils('user not found', 404));
+  if (!user) return next(new errorHandlerUtils('user not found', 404));
   if (user.role === 'user') user.role = 'admin';
   else user.role = 'user';
   await user.save();
@@ -224,7 +224,7 @@ export const roleUpdate = catchAsyncError(async (req, res, next) => {
 
 export const deleteUser = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.params.id);
-  if (!user) return next(new ErrorHandlerUtils('User is not found', 404));
+  if (!user) return next(new errorHandlerUtils('User is not found', 404));
 
   await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
