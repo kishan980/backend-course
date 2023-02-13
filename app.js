@@ -27,11 +27,11 @@ app.use(
     })
 )
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
-    next();
- });
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+//     next();
+//  });
 app.use("/api/v2", payment)
 app.use("/api/v2",courses)
 app.use("/api/v2",user)
