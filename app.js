@@ -19,13 +19,13 @@ app.use(express.urlencoded({
 }))
 
 app.use(cors())
-// app.use(
-//     cors({
-//         origin:process.env.FRONTEND_URL,
-//         credentials:true,
-//         methods:["GET","POST","PUT","DELETE"]
-//     })
-// )
+app.use(
+    cors({
+        origin:process.env.FRONTEND_URL,
+        credentials:true,
+        methods:["GET","POST","PUT","DELETE"]
+    })
+)
 app.use("/api/v2", payment)
 app.use("/api/v2",courses)
 app.use("/api/v2",user)
